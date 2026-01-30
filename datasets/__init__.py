@@ -12,7 +12,7 @@ from .data_utils import (
 __all__ = [
     "load_cifar10",
     "get_cifar10_client_data",
-    "load_mnist", 
+    "load_mnist",
     "get_mnist_client_data",
     "partition_data",
     "create_iid_partitions",

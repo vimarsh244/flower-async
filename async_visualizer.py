@@ -13,6 +13,7 @@ try:
     import pandas as pd
     import numpy as np
     import seaborn as sns
+
     HAS_VIZ = True
 except ImportError:
     HAS_VIZ = False
@@ -41,10 +42,10 @@ nice_goal_label_names = [
 
 def extract_vals_from_metrics(metrics: List[Tuple[int, Any]]) -> List[Any]:
     """Extract values from metrics list.
-    
+
     Args:
         metrics: List of (timestamp, value) tuples
-        
+
     Returns:
         List of values
     """

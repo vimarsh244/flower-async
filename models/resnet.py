@@ -9,6 +9,7 @@ try:
     import torch
     import torch.nn as nn
     import torch.nn.functional as F
+
     HAS_TORCH = True
 except ImportError:
     HAS_TORCH = False
@@ -21,7 +22,7 @@ def _check_torch() -> None:
 
 class BasicBlock(nn.Module):
     """Basic residual block for ResNet-18/34."""
-    
+
     expansion = 1
 
     def __init__(
@@ -44,8 +45,11 @@ class BasicBlock(nn.Module):
         if stride != 1 or in_planes != self.expansion * planes:
             self.shortcut = nn.Sequential(
                 nn.Conv2d(
-                    in_planes, self.expansion * planes,
-                    kernel_size=1, stride=stride, bias=False
+                    in_planes,
+                    self.expansion * planes,
+                    kernel_size=1,
+                    stride=stride,
+                    bias=False,
                 ),
                 nn.BatchNorm2d(self.expansion * planes),
             )
@@ -60,7 +64,7 @@ class BasicBlock(nn.Module):
 
 class Bottleneck(nn.Module):
     """Bottleneck residual block for ResNet-50/101/152."""
-    
+
     expansion = 4
 
     def __init__(
@@ -85,8 +89,11 @@ class Bottleneck(nn.Module):
         if stride != 1 or in_planes != self.expansion * planes:
             self.shortcut = nn.Sequential(
                 nn.Conv2d(
-                    in_planes, self.expansion * planes,
-                    kernel_size=1, stride=stride, bias=False
+                    in_planes,
+                    self.expansion * planes,
+                    kernel_size=1,
+                    stride=stride,
+                    bias=False,
                 ),
                 nn.BatchNorm2d(self.expansion * planes),
             )
@@ -102,10 +109,10 @@ class Bottleneck(nn.Module):
 
 class ResNet(nn.Module):
     """ResNet architecture adapted for CIFAR/MNIST.
-    
+
     This implementation uses smaller initial convolution and no max pooling,
     making it suitable for 32x32 (CIFAR) or 28x28 (MNIST) inputs.
-    
+
     Attributes:
         num_classes: Number of output classes
         in_channels: Number of input channels
@@ -119,7 +126,7 @@ class ResNet(nn.Module):
         in_channels: int = 3,
     ) -> None:
         """Initialize ResNet.
-        
+
         Args:
             block: Block type (BasicBlock or Bottleneck)
             num_blocks: Number of blocks in each layer
@@ -128,7 +135,7 @@ class ResNet(nn.Module):
         """
         _check_torch()
         super().__init__()
-        
+
         self.in_planes = 64
         self.num_classes = num_classes
         self.in_channels = in_channels
@@ -138,12 +145,12 @@ class ResNet(nn.Module):
             in_channels, 64, kernel_size=3, stride=1, padding=1, bias=False
         )
         self.bn1 = nn.BatchNorm2d(64)
-        
+
         self.layer1 = self._make_layer(block, 64, num_blocks[0], stride=1)
         self.layer2 = self._make_layer(block, 128, num_blocks[1], stride=2)
         self.layer3 = self._make_layer(block, 256, num_blocks[2], stride=2)
         self.layer4 = self._make_layer(block, 512, num_blocks[3], stride=2)
-        
+
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
         self.fc = nn.Linear(512 * block.expansion, num_classes)
 
@@ -175,11 +182,11 @@ class ResNet(nn.Module):
 
 def ResNet18(num_classes: int = 10, in_channels: int = 3) -> ResNet:
     """Create a ResNet-18 model.
-    
+
     Args:
         num_classes: Number of output classes
         in_channels: Number of input channels
-        
+
     Returns:
         ResNet-18 model
     """
@@ -189,11 +196,11 @@ def ResNet18(num_classes: int = 10, in_channels: int = 3) -> ResNet:
 
 def ResNet34(num_classes: int = 10, in_channels: int = 3) -> ResNet:
     """Create a ResNet-34 model.
-    
+
     Args:
         num_classes: Number of output classes
         in_channels: Number of input channels
-        
+
     Returns:
         ResNet-34 model
     """
@@ -203,11 +210,11 @@ def ResNet34(num_classes: int = 10, in_channels: int = 3) -> ResNet:
 
 def ResNet50(num_classes: int = 10, in_channels: int = 3) -> ResNet:
     """Create a ResNet-50 model.
-    
+
     Args:
         num_classes: Number of output classes
         in_channels: Number of input channels
-        
+
     Returns:
         ResNet-50 model
     """
@@ -221,15 +228,15 @@ def get_resnet(
     in_channels: int = 3,
 ) -> ResNet:
     """Get a ResNet model by name.
-    
+
     Args:
         variant: Model variant ('resnet18', 'resnet34', 'resnet50')
         num_classes: Number of output classes
         in_channels: Number of input channels
-        
+
     Returns:
         ResNet model
-        
+
     Raises:
         ValueError: If variant is not recognized
     """
@@ -238,8 +245,10 @@ def get_resnet(
         "resnet34": ResNet34,
         "resnet50": ResNet50,
     }
-    
+
     if variant.lower() not in variants:
-        raise ValueError(f"Unknown ResNet variant: {variant}. Choose from {list(variants.keys())}")
-    
+        raise ValueError(
+            f"Unknown ResNet variant: {variant}. Choose from {list(variants.keys())}"
+        )
+
     return variants[variant.lower()](num_classes, in_channels)

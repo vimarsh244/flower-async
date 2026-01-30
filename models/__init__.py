@@ -7,7 +7,7 @@ from .model_utils import get_model, count_parameters, get_model_info
 
 __all__ = [
     "ResNet18",
-    "ResNet34", 
+    "ResNet34",
     "ResNet50",
     "get_resnet",
     "MobileNetV2",
