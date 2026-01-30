@@ -1,0 +1,7 @@
+# MobileNetV2 Model Configuration
+
+name: mobilenetv2
+architecture: mobilenet
+variant: mobilenetv2
+width_mult: 1.0
+pretrained: false

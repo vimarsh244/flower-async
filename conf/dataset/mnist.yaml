@@ -1,0 +1,11 @@
+# MNIST Dataset Configuration
+
+name: mnist
+num_classes: 10
+in_channels: 1
+input_size: 28
+mean: [0.1307]
+std: [0.3081]
+train_size: 60000
+test_size: 10000
+augment: true

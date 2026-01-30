@@ -1,0 +1,6 @@
+# ResNet-34 Model Configuration
+
+name: resnet34
+architecture: resnet
+variant: resnet34
+pretrained: false

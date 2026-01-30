@@ -1,0 +1,6 @@
+# ResNet-18 Model Configuration
+
+name: resnet18
+architecture: resnet
+variant: resnet18
+pretrained: false

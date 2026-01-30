@@ -1,0 +1,111 @@
+{
+  "summary": {
+    "experiment_name": "async_fl_experiment",
+    "start_datetime": "2026-01-30T19:22:10.692396",
+    "duration_seconds": 1000.5273523330688,
+    "total_rounds": 0,
+    "total_client_updates": 0,
+    "staleness_stats": {
+      "mean": 0.0,
+      "max": 0.0,
+      "min": 0.0
+    },
+    "final_loss": null,
+    "final_accuracy": null,
+    "config": {
+      "experiment": {
+        "name": "async_fl_experiment",
+        "seed": 42,
+        "output_dir": "./outputs"
+      },
+      "client": {
+        "num_clients": 10,
+        "batch_size": 32,
+        "local_epochs": 1,
+        "learning_rate": 0.01,
+        "momentum": 0.9,
+        "weight_decay": 0.0001
+      },
+      "training": {
+        "num_rounds": 100,
+        "min_available_clients": 2,
+        "min_fit_clients": 2,
+        "fraction_fit": 0.5,
+        "fraction_evaluate": 0.5
+      },
+      "data": {
+        "data_dir": "./data",
+        "iid": true,
+        "alpha": 0.5
+      },
+      "logging": {
+        "level": "INFO",
+        "log_to_file": true,
+        "wandb": {
+          "enabled": false,
+          "project": "flower-async",
+          "entity": null
+        }
+      },
+      "dataset": {
+        "name": "mnist",
+        "num_classes": 10,
+        "in_channels": 1,
+        "input_size": 28,
+        "mean": [
+          0.1307
+        ],
+        "std": [
+          0.3081
+        ],
+        "train_size": 60000,
+        "test_size": 10000,
+        "augment": true
+      },
+      "model": {
+        "name": "mobilenetv2",
+        "architecture": "mobilenet",
+        "variant": "mobilenetv2",
+        "width_mult": 1.0,
+        "pretrained": false
+      },
+      "strategy": {
+        "name": "fedasync",
+        "async_aggregation_strategy": "fedasync",
+        "use_staleness": true,
+        "staleness_alpha": 0.5,
+        "fedasync_a": 0.5,
+        "fedasync_mixing_alpha": 0.5,
+        "use_sample_weighing": true,
+        "send_gradients": false,
+        "server_artificial_delay": false
+      },
+      "server": {
+        "server_address": "[::]:8080",
+        "async_mode": true,
+        "max_workers": 10,
+        "client_timeout": 600,
+        "fit_timeout": 300,
+        "evaluate_timeout": 120,
+        "checkpoint": {
+          "enabled": true,
+          "save_dir": "./checkpoints",
+          "save_every": 10,
+          "keep_last": 5
+        },
+        "early_stopping": {
+          "enabled": false,
+          "patience": 10,
+          "min_delta": 0.001,
+          "monitor": "loss"
+        }
+      }
+    }
+  },
+  "client_updates": [],
+  "round_metrics": [],
+  "loss_history": [],
+  "accuracy_history": [],
+  "custom_metrics": {},
+  "timestamps": []
+}

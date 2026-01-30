@@ -1,0 +1,24 @@
+# Default Server Configuration
+
+server_address: "[::]:8080"
+async_mode: true
+max_workers: 10
+
+# Timeouts
+client_timeout: 600  # seconds
+fit_timeout: 300
+evaluate_timeout: 120
+
+# Checkpointing
+checkpoint:
+  enabled: true
+  save_dir: ./checkpoints
+  save_every: 10  # rounds
+  keep_last: 5
+
+# Early stopping
+early_stopping:
+  enabled: false
+  patience: 10
+  min_delta: 0.001
+  monitor: loss  # 'loss' or 'accuracy'
