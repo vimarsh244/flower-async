@@ -1,14 +1,34 @@
+"""Visualization utilities for async federated learning.
+
+This module provides visualization tools for analyzing async FL experiments,
+including training curves, confusion matrices, and staleness analysis.
+"""
+
 import math
-from monitoring_sync.tracker import Tracker
-from typing import List, Tuple, Any, Dict
-import matplotlib.pyplot as plt
-import pandas as pd
-import numpy as np
-from flwr.common import log
+from typing import List, Tuple, Any, Dict, Optional
 from logging import DEBUG
+
+try:
+    import matplotlib.pyplot as plt
+    import pandas as pd
+    import numpy as np
+    import seaborn as sns
+
+    HAS_VIZ = True
+except ImportError:
+    HAS_VIZ = False
+
+from flwr.common import log
 from flwr.server.history import History
-import seaborn as sns
-import glob
+
+try:
+    from .monitoring_sync.tracker import Tracker
+except ImportError:
+    try:
+        from monitoring_sync.tracker import Tracker
+    except ImportError:
+        Tracker = None  # type: ignore
+
 
 nice_goal_label_names = [
     "WALKING",
@@ -20,7 +40,15 @@ nice_goal_label_names = [
 ]
 
 
-def extract_vals_from_metrics(metrics: List[Tuple[int, Any]]):
+def extract_vals_from_metrics(metrics: List[Tuple[int, Any]]) -> List[Any]:
+    """Extract values from metrics list.
+
+    Args:
+        metrics: List of (timestamp, value) tuples
+
+    Returns:
+        List of values
+    """
     return [val for _, val in metrics]
 
 

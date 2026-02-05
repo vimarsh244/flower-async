@@ -1,0 +1,7 @@
+# MobileNetV3-Small Model Configuration
+
+name: mobilenetv3_small
+architecture: mobilenet
+variant: mobilenetv3_small
+width_mult: 1.0
+pretrained: false

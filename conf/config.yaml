@@ -1,0 +1,47 @@
+# Flower Async FL Configuration
+# Use with: python main.py [overrides]
+
+defaults:
+  - _self_
+  - dataset: cifar10
+  - model: resnet18
+  - strategy: fedasync
+  - server: default
+
+# Experiment settings
+experiment:
+  name: async_fl_experiment
+  seed: 42
+  output_dir: ./outputs
+
+# Client settings
+client:
+  num_clients: 10
+  batch_size: 32
+  local_epochs: 1
+  learning_rate: 0.01
+  momentum: 0.9
+  weight_decay: 0.0001
+
+# Training settings
+training:
+  num_rounds: 100
+  min_available_clients: 2
+  min_fit_clients: 2
+  fraction_fit: 0.5
+  fraction_evaluate: 0.5
+
+# Data settings
+data:
+  data_dir: ./data
+  iid: true
+  alpha: 0.5  # Dirichlet alpha for non-IID
+
+# Logging
+logging:
+  level: INFO
+  log_to_file: true
+  wandb:
+    enabled: false
+    project: flower-async
+    entity: null

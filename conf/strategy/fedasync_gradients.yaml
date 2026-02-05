@@ -1,0 +1,21 @@
+# FedAsync Strategy with Gradient Aggregation
+
+name: fedasync_gradients
+async_aggregation_strategy: fedasync
+
+# Staleness handling
+use_staleness: true
+staleness_alpha: 0.5
+fedasync_a: 0.5
+
+# Mixing coefficient
+fedasync_mixing_alpha: 0.3
+
+# Sample weighting
+use_sample_weighing: true
+
+# Gradient mode - enabled
+send_gradients: true
+
+# Testing
+server_artificial_delay: false

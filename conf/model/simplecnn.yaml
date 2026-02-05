@@ -1,0 +1,5 @@
+# Simple CNN Model Configuration
+
+name: simplecnn
+architecture: simple
+variant: simplecnn

@@ -1,0 +1,21 @@
+# FedAsync Strategy without Staleness Weighting
+
+name: fedasync_no_staleness
+async_aggregation_strategy: fedasync
+
+# Staleness handling - disabled
+use_staleness: false
+staleness_alpha: 0.5
+fedasync_a: 0.5
+
+# Mixing coefficient
+fedasync_mixing_alpha: 0.5
+
+# Sample weighting
+use_sample_weighing: true
+
+# Gradient mode
+send_gradients: false
+
+# Testing
+server_artificial_delay: false

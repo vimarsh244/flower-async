@@ -1,0 +1,21 @@
+# FedAsync Strategy Configuration
+
+name: fedasync
+async_aggregation_strategy: fedasync
+
+# Staleness handling
+use_staleness: true
+staleness_alpha: 0.5
+fedasync_a: 0.5  # Polynomial decay parameter
+
+# Mixing coefficient
+fedasync_mixing_alpha: 0.5
+
+# Sample weighting
+use_sample_weighing: true
+
+# Gradient mode
+send_gradients: false
+
+# Testing
+server_artificial_delay: false
